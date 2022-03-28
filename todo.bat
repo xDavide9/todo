@@ -9,7 +9,7 @@ setlocal
 
     :: checking todo.txt exists
     if NOT EXIST todo.txt (
-        echo Please use the /a option to add a task
+        echo Empty list - use the /a option to add a task
         goto :eof
     )
 
@@ -25,13 +25,13 @@ setlocal
     :: checking todo.txt exists
     if NOT EXIST todo.txt (
         echo.
-        echo Please use the /a option to add a task
+        echo Empty list - use the /a option to add a task
         goto :eof
     )
 
     :: getting the id which is wanted to delete
     echo.
-    echo Please enter the id which you want to delete:
+    echo Enter the id which you want to delete:
     echo.
     set /p id=
 
@@ -39,7 +39,7 @@ setlocal
     echo %id%| findstr /r "^[1-9][0-9]*$">nul
     if NOT %errorlevel% equ 0 (
         echo.
-        echo Please enter a valid number
+        echo Enter a valid number
         goto :eof
     )
 
@@ -57,7 +57,7 @@ setlocal
     )
 
     echo.
-    echo No such id 
+    echo Enter a valid id
 
 endlocal
 goto :eof
@@ -70,6 +70,13 @@ goto :eof
 
 :deleteAll
 setlocal
+
+    :: checking todo.txt exists
+    if NOT EXIST todo.txt (
+        echo.
+        echo Empty list - use the /a option to add a task
+        goto :eof
+    )
 
     echo.
     choice /m "Are you sure you want to delete all the tasks?"
@@ -96,7 +103,7 @@ setlocal
 
     :: register new tasks
     echo.
-    echo Please enter a task:
+    echo Enter a new task:
     echo.
     set /p task= 
     :: the id comes before the task
