@@ -50,6 +50,8 @@ setlocal
             type temp.txt | findstr /v !id! > todo.txt
             del temp.txt
             call :deleteFile todo.txt
+            echo.
+            echo Successfully deleted
             goto :eof
         )
     )
@@ -110,10 +112,16 @@ goto :eof
 setlocal
 
     echo.
-    echo This scripts allows to create a list of tasks that are numbered with an id
+    echo NAME
+    echo    todo - create a list of tasks that are numbered with an id
     echo.
-    echo Options: [/a][/A] to add a task, [/d] to delete a task, [D] to delete all the tasks
-    echo With no Options: display the list of tasks
+    echo SYNOPSIS
+    echo    todo [OPTION]
+    echo.
+    echo OPTIONS 
+    echo    /a, /A - add a task
+    echo    /d - to delete a task
+    echo    /D - delete all the tasks
 
 endlocal
 goto :eof
