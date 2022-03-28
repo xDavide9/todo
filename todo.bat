@@ -7,14 +7,14 @@ setlocal
 
     echo.
 
-    :: checking todo.txt exists
-    if NOT EXIST todo.txt (
+    :: checking %file% exists
+    if NOT EXIST %file% (
         echo Empty list - use the /a option to add a task
         goto :eof
     )
 
     :: displaying the list of tasks
-    type todo.txt
+    type %file%
 
 endlocal
 goto :eof
@@ -22,8 +22,8 @@ goto :eof
 :delete
 setlocal
 
-    :: checking todo.txt exists
-    if NOT EXIST todo.txt (
+    :: checking %file% exists
+    if NOT EXIST %file% (
         echo.
         echo Empty list - use the /a option to add a task
         goto :eof
@@ -44,12 +44,12 @@ setlocal
     )
 
     :: trying to delete from the list
-    for /f %%i in ( todo.txt ) do (
+    for /f %%i in ( %file% ) do (
         if %%i equ !id! (
-            type todo.txt > temp.txt
-            type temp.txt | findstr /v !id! > todo.txt
-            del temp.txt
-            call :deleteFile todo.txt
+            type %file% > %temporary%
+            type %temporary% | findstr /v !id! > %file%
+            del %temporary%
+            call :deleteFile %file%
             echo.
             echo Successfully deleted
             goto :eof
@@ -71,8 +71,8 @@ goto :eof
 :deleteAll
 setlocal
 
-    :: checking todo.txt exists
-    if NOT EXIST todo.txt (
+    :: checking %file% exists
+    if NOT EXIST %file% (
         echo.
         echo Empty list - use the /a option to add a task
         goto :eof
@@ -80,7 +80,7 @@ setlocal
 
     echo.
     choice /m "Are you sure you want to delete all the tasks?"
-    if %errorlevel% equ 1 del todo.txt
+    if %errorlevel% equ 1 del %file%
 
 endlocal
 goto :eof
@@ -92,10 +92,10 @@ setlocal
     set /a "id=1"
     set /a "count=0"
 
-    :: increment id depending on tasks in todo.txt
+    :: increment id depending on tasks in %file%
     :: where a task is just a line of that file
-    if EXIST todo.txt (
-        for /f %%i in ( todo.txt ) do (
+    if EXIST %file% (
+        for /f %%i in ( %file% ) do (
             if %%i gtr !count! set /a "count=%%i"
             set /a "id=!count!+1"
         )
@@ -107,7 +107,7 @@ setlocal
     echo.
     set /p task= 
     :: the id comes before the task
-    echo !id! %task% >> todo.txt
+    echo !id! %task% >> %file%
 
     echo.
     echo Successfully added
@@ -136,12 +136,21 @@ goto :eof
 :main
 setlocal
 
+    :: creating location to store information in
+    set current=%cd%
+    cd %APPDATA%
+    mkdir todo 2>nul
+    set file=%APPDATA%\todo\todo.txt
+    set temporary=%temp%\temp.txt
+    cd %current%
+    
     if "%~1"=="" goto blank
     if "%~1"=="/a" if "%~2"=="" goto add
     if "%~1"=="/A" if "%~2"=="" goto add
     if "%~1"=="/d" if "%~2"=="" goto delete
     if "%~1"=="/D" if "%~2"=="" goto deleteAll
     if "%~1"=="/?" if "%~2"=="" goto help
+    echo.
     echo Invalid argument
 
 endlocal
