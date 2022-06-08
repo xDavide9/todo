@@ -1,19 +1,23 @@
 # ToDo List
 
-A _batch script_ that allows you to create a list of things to do identified by an id with which they can be deleted afterwards.
+[![author](https://img.shields.io/badge/author-xDavide9-brightgreen)](https://github.com/xDavide9)
+[![repo size](https://img.shields.io/github/repo-size/xDavide9/Todo?color=blue)](https://github.com/xDavide9/Todo)
+[![license](https://img.shields.io/github/license/xDavide9/Todo?color=red)](https://github.com/xDavide9/Todo)
 
-- Works only on _windows_
-- Should be familiar with the _command line_
-- Immediate access to the information
+> List your tasks efficiently using command line without the need of a _GUI_
 
-<hr>
+### Installation
 
-When it comes to remember your daily tasks, a simple script written in the os own command line language without even bothering with a _gui_ is the fastest choice.
+- Download the `bat` file, open a _shell_ and run `todo /?` to get started
 
-You might want to add the script to your path enviroment variable so that you can access it from any location.
+### Features
 
-Get Started with `todo /?`
+- Built in [_Batch_](https://en.wikipedia.org/wiki/Batch_file)
+- Add tasks using the `/a` `/A` option
+- Remove tasks using `/d` option specifying the _task ID_ or delete all of them with `/D`
 
-![pic.png](pic.png)
+### PATH Envinroment Variable
 
-> Author: xDavide9
+- You might want to add the script to your path enviroment variable so that you can access it from any location.
+
+![pic.png](/readmepics/pic.png)
